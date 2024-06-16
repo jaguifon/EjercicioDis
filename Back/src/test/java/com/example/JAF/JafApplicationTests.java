@@ -1,4 +1,4 @@
-package com.es.ufv.dis.ordinaria.api.JAF;
+package com.example.JAF;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

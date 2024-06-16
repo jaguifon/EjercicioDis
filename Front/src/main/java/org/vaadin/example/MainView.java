@@ -1,15 +1,12 @@
 package org.vaadin.example;
 
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.renderer.NativeButtonRenderer;
+import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.html.Paragraph;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.Route;
+import java.util.List;
 
 /**
  * A sample Vaadin view class.
@@ -35,30 +32,30 @@ public class MainView extends VerticalLayout {
      *            The message service. Automatically injected Spring managed
      *            bean.
      */
+    Grid<Objeto> grid = new Grid<>(Objeto.class, false);
     public MainView(@Autowired GreetService service) {
 
-        // Use TextField for standard text input
-        TextField textField = new TextField("Your name");
-        textField.addClassName("bordered");
+        grid.addColumn(Objeto::getName).setHeader("Ship name");
+        grid.addColumn(Objeto::getModel).setHeader("Ship model");
+        grid.addColumn(Objeto::getCostInCredits).setHeader("Cost in credits");
+        grid.addColumn(Objeto::getCrew).setHeader("Crew");
+        grid.addColumn(Objeto::getCargoCapacity).setHeader("Cargo capacity");
+        grid.addColumn(Objeto::getConsumables).setHeader("Consumables");
+        grid.addColumn(Objeto::getHyperdriveRating).setHeader("Hyperdrive rating");
+        grid.addColumn(Objeto::getStarshipClass).setHeader("Starship class");
+        grid.addColumn(Objeto::getPilotsView).setHeader("Pilots");
+        grid.addColumn(Objeto::getFilmsView).setHeader("Films");
+        grid.addColumn(new NativeButtonRenderer<>("Generar", service::senPDFRequest)
+        ).setHeader("Generar PDF");
+        List<Objeto> objeto = service.getObjetos();
+        grid.setItems(objeto);
 
-        // Button click listeners can be defined as lambda expressions
-        Button button = new Button("Say hello", e -> {
-            add(new Paragraph(service.greet(textField.getValue())));
-        });
+        grid.setWidth("200%");
+        grid.setWidthFull();
 
-        // Theme variants give you predefined extra styles for components.
-        // Example: Primary button has a more prominent look.
-        button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
-        // You can specify keyboard shortcuts for buttons.
-        // Example: Pressing enter in this view clicks the Button.
-        button.addClickShortcut(Key.ENTER);
+        add(grid);
 
-        // Use custom CSS classes to apply styling. This is defined in
-        // styles.css.
-        addClassName("centered-content");
-
-        add(textField, button);
     }
 
 }

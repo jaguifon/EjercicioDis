@@ -1,18 +1,18 @@
 package org.vaadin.example;
 
-import java.io.Serializable;
-
 import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 @Service
 public class GreetService implements Serializable {
 
-    public String greet(String name) {
-        if (name == null || name.isEmpty()) {
-            return "Hello anonymous user";
-        } else {
-            return "Hello " + name;
-        }
+    public  ArrayList<Objeto> getObjetos() {
+        return new ObjetoRequests().getObjetos();
     }
 
+    public ArrayList<Objeto> senPDFRequest(Objeto objeto) {
+        return new ObjetoRequests().sendPDFRequest(objeto);
+    }
 }
