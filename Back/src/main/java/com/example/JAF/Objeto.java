@@ -1,23 +1,33 @@
 package com.example.JAF;
 
+import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.Arrays;
 
 public class Objeto {
+
+    @SerializedName("name")
     private String name;
+    @SerializedName("model")
     private String model;
+    @SerializedName("cost_in_credits")
     private String costInCredits;
+    @SerializedName("crew")
     private String crew;
+    @SerializedName("cargo_capacity")
     private String cargoCapacity;
+    @SerializedName("consumables")
     private String consumables;
+    @SerializedName("hyperdrive_rating")
     private String hyperdriveRating;
+    @SerializedName("starship_class")
     private String starshipClass;
+    @SerializedName("pilots")
     private String[] pilots;
+    @SerializedName("films")
     private String[] films;
 
-    public Objeto(String name, String model, String costInCredits, String crew, String cargoCapacity,
-                  String consumables, String hyperdriveRating, String starshipClass,
-                  String[] pilots, String[] films) {
+    public Objeto(String name, String model, String costInCredits, String crew, String cargoCapacity, String consumables, String hyperdriveRating, String starshipClass, String[] pilots, String[] films) {
         this.name = name;
         this.model = model;
         this.costInCredits = costInCredits;
@@ -30,7 +40,6 @@ public class Objeto {
         this.films = films;
     }
 
-    // Getters and Setters (optional)
     public String getName() {
         return name;
     }
@@ -94,6 +103,7 @@ public class Objeto {
     public void setStarshipClass(String starshipClass) {
         this.starshipClass = starshipClass;
     }
+
     public String[] getPilots() {
         return pilots;
     }
@@ -109,9 +119,10 @@ public class Objeto {
     public void setFilms(String[] films) {
         this.films = films;
     }
+
     @Override
     public String toString() {
-        return "Objeto{" +
+        return "Ship{" +
                 "name='" + name + '\'' +
                 ", model='" + model + '\'' +
                 ", costInCredits='" + costInCredits + '\'' +
@@ -120,8 +131,8 @@ public class Objeto {
                 ", consumables='" + consumables + '\'' +
                 ", hyperdriveRating='" + hyperdriveRating + '\'' +
                 ", starshipClass='" + starshipClass + '\'' +
-                ", pilots=" + pilots +
-                ", films=" + films +
+                ", pilots=" + Arrays.toString(pilots) +
+                ", films=" + Arrays.toString(films) +
                 '}';
     }
 }

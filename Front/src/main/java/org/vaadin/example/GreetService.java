@@ -15,4 +15,9 @@ public class GreetService implements Serializable {
     public ArrayList<Objeto> senPDFRequest(Objeto objeto) {
         return new ObjetoRequests().sendPDFRequest(objeto);
     }
+
+    public Objeto editObjetos(Objeto datosEditados) {
+        System.out.println("Editing ShipRequest for " + datosEditados);
+        return new ObjetoRequests().editRequest(datosEditados);
+    }
 }

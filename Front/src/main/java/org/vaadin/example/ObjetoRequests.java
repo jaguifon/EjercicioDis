@@ -24,6 +24,7 @@ public class ObjetoRequests {
             HttpResponse<String> response = null;
             Gson gson = new Gson();
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
             Type shipsListType = new TypeToken<ArrayList<Objeto>>() {
             }.getType();
             return gson.fromJson(response.body(), shipsListType);
@@ -61,6 +62,34 @@ public class ObjetoRequests {
         }
 
         return result;
+    }
+
+    public Objeto editRequest(Objeto datosEditados) {
+        Gson gson = new Gson();
+        HttpClient client = HttpClient.newHttpClient();
+        try {
+            String shipJson = gson.toJson(datosEditados);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(new URI("http://localhost:8080/api/" + datosEditados.getName().replaceAll(" ","%20")))  // Assuming Ship has an ID
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(shipJson))
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                Type shipType = new TypeToken<Objeto>() {}.getType();
+                System.out.println(response.body());
+                Objeto editedObjeto = gson.fromJson(response.body(), shipType);
+                return editedObjeto;
+            } else {
+                throw new RuntimeException("Failed to edit ship: " + response.statusCode());
+            }
+
+        } catch (IOException | InterruptedException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
