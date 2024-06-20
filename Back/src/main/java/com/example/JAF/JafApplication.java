@@ -2,6 +2,7 @@ package com.example.JAF;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+// Este commit va a ser para mergear
 
 @SpringBootApplication
 public class JafApplication {
